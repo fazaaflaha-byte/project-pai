@@ -1,17 +1,11 @@
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">📖 Daftar Surat</h2>
-
-  <div *ngIf="loading">Memuat data...</div>
-
-  <ul *ngIf="!loading" class="space-y-2">
-    <li *ngFor="let surat of surats"
-        class="p-3 border rounded-lg hover:bg-gray-100 cursor-pointer transition"
-        [routerLink]="['/surat', surat.nomor]">
-      <div class="font-semibold">{{ surat.namaLatin }} ({{ surat.nama }})</div>
-      <div class="text-sm text-gray-600">Arti: {{ surat.arti }}</div>
-      <div class="text-xs text-gray-500">
-        {{ surat.tempatTurun }} • {{ surat.jumlahAyat }} ayat
-      </div>
-    </li>
-  </ul>
-</div>
+<ul *ngIf="!loading" class="space-y-2">
+  <li *ngFor="let surat of filteredSurats"
+      class="p-3 border rounded-lg hover:bg-gray-100 cursor-pointer transition"
+      [routerLink]="['/surat', surat.nomor]">
+    <div class="font-semibold">{{ surat.namaLatin }} ({{ surat.nama }})</div>
+    <div class="text-sm text-gray-600">Arti: {{ surat.arti }}</div>
+    <div class="text-xs text-gray-500">
+      {{ surat.tempatTurun }} • {{ surat.jumlahAyat }} ayat
+    </div>
+  </li>
+</ul>

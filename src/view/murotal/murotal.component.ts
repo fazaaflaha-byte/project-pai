@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgFor, NgIf, KeyValuePipe } from '@angular/common';
 import { SurahService } from '../../app/service/surat.service';
 import { AudioSignalService } from '../../app/service/signal.service';
+import { FormsModule } from '@angular/forms';
 
 interface AudioMap {
   [key: string]: string;
@@ -19,14 +20,16 @@ interface SuratData {
 @Component({
   selector: 'app-murotal',
   standalone: true,
-  imports: [NgFor, NgIf, KeyValuePipe],
+  imports: [NgFor, NgIf, KeyValuePipe, FormsModule],
   templateUrl: './murotal.component.html',
   styleUrls: ['./murotal.component.css']
 })
 export class MurotalComponent implements OnInit, OnDestroy {
   semuaSurat: SuratData[] = [];
+  filteredSurat: SuratData[] = [];
   audioPlayer: HTMLAudioElement | null = null;
   loading = true;
+  searchQuery: string = '';
 
   currentAudioUrl!: () => string | null;
   isPlaying!: () => boolean;
@@ -43,6 +46,7 @@ export class MurotalComponent implements OnInit, OnDestroy {
     this.surahService.getAllSurat().subscribe({
       next: (res) => {
         this.semuaSurat = res.data;
+        this.filteredSurat = [...this.semuaSurat];
         this.loading = false;
       },
       error: (err) => {
@@ -53,33 +57,24 @@ export class MurotalComponent implements OnInit, OnDestroy {
   }
 
   playAudio(url?: string): void {
-    if (!url) {
-      console.warn('Audio tidak tersedia untuk surat ini.');
-      return;
-    }
+    if (!url) return;
 
-    // Jika sedang main dan URL sama → stop
     if (this.currentAudioUrl() === url && this.isPlaying()) {
       this.stopAudio();
       return;
     }
 
-    // Stop audio lama
     if (this.audioPlayer) {
       this.audioPlayer.pause();
       this.audioPlayer.currentTime = 0;
     }
 
-    // Mainkan audio baru
     this.audioPlayer = new Audio(url);
     this.audioPlayer.play()
       .then(() => this.audioSignal.setAudio(url, true))
       .catch(err => console.error('Gagal memutar audio:', err));
 
-    // Update global signal saat audio selesai
-    this.audioPlayer.onended = () => {
-      this.audioSignal.stop();
-    };
+    this.audioPlayer.onended = () => this.audioSignal.stop();
   }
 
   stopAudio(): void {
@@ -91,13 +86,21 @@ export class MurotalComponent implements OnInit, OnDestroy {
     this.audioSignal.stop();
   }
 
-  // ✅ Tambahkan ini agar berhenti otomatis saat berpindah halaman
   ngOnDestroy(): void {
-    if (this.audioPlayer) {
-      this.audioPlayer.pause();
-      this.audioPlayer.currentTime = 0;
-      this.audioPlayer = null;
+    this.stopAudio();
+  }
+
+  /** 🔎 Filter surat berdasarkan searchQuery */
+  filterSurat() {
+    const q = this.searchQuery.toLowerCase().trim();
+    if (q) {
+      this.filteredSurat = this.semuaSurat.filter(s =>
+        s.namaLatin.toLowerCase().includes(q) ||
+        s.arti.toLowerCase().includes(q) ||
+        s.tempatTurun.toLowerCase().includes(q)
+      );
+    } else {
+      this.filteredSurat = [...this.semuaSurat];
     }
-    this.audioSignal.stop();
   }
 }

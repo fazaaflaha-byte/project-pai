@@ -1,1 +1,31 @@
-<p>al-masurat works!</p>
+<div class="p-4">
+  <h1 class="text-2xl font-bold mb-4 text-emerald-700">📖 Daftar Doa Al-Ma’tsurat</h1>
+
+  <!-- Optional: search input di halaman -->
+  <div class="mb-4">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="filterDoa()"
+      placeholder="Cari doa atau grup..."
+      class="w-full px-4 py-2 rounded-lg border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
+    />
+  </div>
+
+  <div *ngIf="loading" class="text-gray-500">Memuat doa...</div>
+
+  <div *ngIf="!loading && filteredDoaList.length > 0" class="grid gap-3">
+    <div
+      *ngFor="let doa of filteredDoaList"
+      (click)="openDetail(doa)"
+      class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-xl cursor-pointer transition-all shadow-sm"
+    >
+      <h2 class="font-semibold text-emerald-800">{{ doa.nama }}</h2>
+      <p class="text-sm text-gray-600">{{ doa.grup }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && filteredDoaList.length === 0" class="text-gray-500">
+    😔 Tidak ada doa yang cocok.
+  </div>
+</div>
