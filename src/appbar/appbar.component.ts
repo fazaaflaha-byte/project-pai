@@ -33,9 +33,9 @@ export class AppbarComponent {
   /** 🔄 Ubah placeholder berdasarkan route aktif */
   updateSearchPlaceholder(url: string): void {
     if (url.includes('/al-masurat')) {
-      this.searchPlaceholder = 'Cari doa Al-Ma\'surat...';
+      this.searchPlaceholder = 'Cari Surat...';
     } else if (url.includes('/murotal')) {
-      this.searchPlaceholder = 'Cari murotal...';
+      this.searchPlaceholder = 'Cari Surat...';
     } else if (url.includes('/surat')) {
       this.searchPlaceholder = 'Cari surat...';
     } else {
@@ -54,15 +54,19 @@ export class AppbarComponent {
   }
 
   /** 🔍 Fungsi ketika tekan Enter di search */
-  onSearch(): void {
-    if (!this.searchQuery.trim()) return;
+ onSearch(): void {
+  if (!this.searchQuery.trim()) return;
 
-    console.log('🔍 Mencari:', this.searchQuery);
+  const query = this.searchQuery.trim();
+  let targetRoute = '/surat'; // default
 
-    // Contoh redirect ke halaman hasil pencarian (opsional)
-    this.router.navigate(['/surat'], { queryParams: { q: this.searchQuery } });
+  if (this.router.url.includes('/al-masurat')) targetRoute = '/al-masurat';
+  else if (this.router.url.includes('/murotal')) targetRoute = '/murotal';
 
-    this.searchQuery = '';
-    this.closeMobileMenu();
-  }
+  this.router.navigate([targetRoute], { queryParams: { q: query } });
+
+  this.searchQuery = '';
+  this.closeMobileMenu();
+}
+
 }
