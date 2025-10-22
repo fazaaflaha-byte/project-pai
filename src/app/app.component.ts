@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AppbarComponent } from '../appbar/appbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, AppbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
