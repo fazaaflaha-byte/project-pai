@@ -1,0 +1,25 @@
+<div class="p-4">
+  <div *ngIf="loading">Memuat detail surat...</div>
+
+  <div *ngIf="!loading && surat">
+    <h2 class="text-2xl font-bold mb-2">{{ surat.namaLatin }} ({{ surat.nama }})</h2>
+    <p class="text-gray-600 mb-4">
+      Arti: {{ surat.arti }} <br>
+      Tempat Turun: {{ surat.tempatTurun }} <br>
+      Jumlah Ayat: {{ surat.jumlahAyat }}
+    </p>
+
+    <h3 class="font-semibold mb-2">📜 Daftar Ayat</h3>
+
+    <div *ngFor="let ayat of surat.ayat" class="p-3 border rounded-lg mb-3">
+      <div class="text-right text-2xl font-arabic mb-2">{{ ayat.teksArab }}</div>
+      <div class="text-sm text-gray-700 mb-1">{{ ayat.teksIndonesia }}</div>
+
+      <!-- 🎧 Audio ayat (pakai qari pertama dari array audio) -->
+      <audio *ngIf="ayat.audio && ayat.audio[0]" controls>
+        <source [src]="ayat.audio[0].audioUrl" type="audio/mpeg" />
+        Browser Anda tidak mendukung pemutar audio.
+      </audio>
+    </div>
+  </div>
+</div>
