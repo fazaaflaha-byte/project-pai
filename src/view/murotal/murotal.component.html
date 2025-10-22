@@ -19,7 +19,9 @@
         (click)="playAudio(surat.audioFull?.['05'])"
         class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-all"
       >
-        <span *ngIf="selectedAudio === surat.audioFull?.['05']; else playBtn">⏸️ Stop</span>
+        <ng-container *ngIf="currentAudioUrl() === surat.audioFull?.['05'] && isPlaying(); else playBtn">
+          ⏸️ Stop
+        </ng-container>
         <ng-template #playBtn>▶️ Putar</ng-template>
       </button>
     </div>
