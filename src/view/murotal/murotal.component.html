@@ -1,48 +1,119 @@
-<div class="p-6 bg-gray-50 min-h-screen">
-  <h2 class="text-2xl font-bold mb-4 text-emerald-700">🎧 Murotal Al-Qur'an</h2>
+<!-- murotal.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 p-4">
+  <div class="max-w-7xl mx-auto">
 
-  <!-- Search Input -->
-  <div class="mb-4">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      (input)="filterSurat()"
-      placeholder="Cari surat..."
-      class="w-full px-4 py-2 rounded-lg border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
-    />
-  </div>
-
-  <div *ngIf="!loading; else loadingTpl" class="space-y-4">
-    <div
-      *ngFor="let surat of filteredSurat"
-      class="bg-white rounded-xl shadow p-4 flex items-center justify-between hover:bg-emerald-50 transition-all"
-    >
-      <div>
-        <h3 class="text-lg font-semibold text-emerald-800">
-          {{ surat.nomor }}. {{ surat.namaLatin }}
-        </h3>
-        <p class="text-gray-600 text-sm">
-          {{ surat.arti }} ({{ surat.tempatTurun }}) – {{ surat.jumlahAyat }} ayat
-        </p>
+    <!-- Loading -->
+    <div *ngIf="loading" class="flex items-center justify-center p-12">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-emerald-600 mx-auto mb-4"></div>
+        <p class="text-emerald-600 font-medium">Memuat daftar surat...</p>
       </div>
-
-      <button
-        (click)="playAudio(surat.audioFull?.['05'])"
-        class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg transition-all"
-      >
-        <ng-container *ngIf="currentAudioUrl() === surat.audioFull?.['05'] && isPlaying(); else playBtn">
-          ⏸️ Stop
-        </ng-container>
-        <ng-template #playBtn>▶️ Putar</ng-template>
-      </button>
     </div>
-  </div>
 
-  <ng-template #loadingTpl>
-    <p class="text-gray-500 text-center">⏳ Memuat daftar surat...</p>
-  </ng-template>
+    <!-- List -->
+    <div *ngIf="!loading && filteredSurat.length > 0" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div
+        *ngFor="let surat of filteredSurat"
+        class="murotal-card group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-emerald-100"
+      >
 
-  <div *ngIf="!loading && filteredSurat.length === 0" class="text-gray-500 text-center mt-4">
-    😔 Tidak ada surat yang cocok.
+        <!-- Accent -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-400/10 to-teal-500/10 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-110 transition-transform duration-300"></div>
+        
+        <!-- Content -->
+        <div class="relative p-6 flex items-center justify-between gap-4">
+          <!-- Info -->
+          <div class="flex-1 min-w-0">
+            <!-- Nomor & Nama + Visualizer -->
+            <div class="flex items-center gap-2 mb-2">
+              <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-md">
+                <span class="text-white font-bold text-sm">{{ surat.nomor }}</span>
+              </div>
+
+              <!-- Nama surat dan visualizer rapat -->
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-gray-800 group-hover:text-emerald-600 transition-colors truncate">
+                  {{ surat.namaLatin }}
+                </h3>
+
+                <!-- Visualizer di kanan nama -->
+                <div *ngIf="currentAudioUrl() === surat.audioFull?.['05'] && isPlaying()" class="flex items-center space-x-1 ml-2">
+                  <div class="w-1 h-4 bg-emerald-500 rounded-full animate-pulse"></div>
+                  <div class="w-1 h-6 bg-emerald-500 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
+                  <div class="w-1 h-4 bg-emerald-500 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detail -->
+            <div class="ml-13 space-y-1">
+              <p class="text-sm text-gray-600 italic">
+                <span class="text-emerald-600 font-semibold">Artinya:</span> {{ surat.arti }}
+              </p>
+              <div class="flex items-center space-x-3 text-xs text-gray-500">
+                <div class="flex items-center space-x-1">
+                  <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span class="font-medium">{{ surat.tempatTurun }}</span>
+                </div>
+                <span>•</span>
+                <div class="flex items-center space-x-1">
+                  <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                  </svg>
+                  <span class="font-medium">{{ surat.jumlahAyat }} Ayat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tombol -->
+          <button
+            (click)="playAudio(surat.audioFull?.['05'])"
+            class="flex-shrink-0 group/btn relative overflow-hidden bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+          >
+            <div class="absolute inset-0 bg-white/20 opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+            
+            <div class="relative flex items-center space-x-2">
+              <ng-container *ngIf="currentAudioUrl() === surat.audioFull?.['05'] && isPlaying(); else playBtn">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+                <span class="font-semibold hidden sm:inline">Pause</span>
+              </ng-container>
+              <ng-template #playBtn>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                <span class="font-semibold hidden sm:inline">Putar</span>
+              </ng-template>
+            </div>
+          </button>
+        </div>
+
+        <!-- Border Hover -->
+        <div class="absolute inset-0 border-2 border-emerald-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      </div>
+    </div>
+
+    <!-- Kosong -->
+    <div *ngIf="!loading && filteredSurat.length === 0" class="text-center p-12">
+      <div class="max-w-md mx-auto">
+        <div class="bg-gradient-to-br from-emerald-100 to-teal-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-700 mb-2">Tidak ada surat ditemukan</h3>
+        <p class="text-gray-500">Coba gunakan kata kunci yang berbeda</p>
+      </div>
+    </div>
+
   </div>
 </div>

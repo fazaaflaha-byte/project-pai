@@ -6,3 +6,19 @@ ul {
 li {
   transition: background-color 0.2s ease;
 }
+
+.surat-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.surat-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.surat-card.animate-out {
+  opacity: 0;
+  transform: translateY(30px);
+}
