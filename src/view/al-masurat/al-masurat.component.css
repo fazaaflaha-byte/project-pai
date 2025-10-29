@@ -1,0 +1,25 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  transition: background-color 0.2s ease;
+}
+
+/* Animasi scroll untuk doa cards */
+.doa-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.doa-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.doa-card.animate-out {
+  opacity: 0;
+  transform: translateY(30px);
+}

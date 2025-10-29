@@ -1,138 +1,153 @@
-<nav class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white shadow-lg sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- appbar.component.html -->
+<nav class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4">
     <div class="flex items-center justify-between h-16">
 
-      <!-- Logo & Title (Left Side - Always Visible) -->
-      <div class="flex items-center space-x-3 cursor-pointer" routerLink="/">
-        <div class="bg-white/20 backdrop-blur-sm p-2.5 rounded-xl hover:bg-white/30 transition-all duration-300">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+      <!-- Logo & Title (Left Side) -->
+      <div class="flex items-center space-x-3 cursor-pointer group" routerLink="/">
+        <div class="bg-white/20 backdrop-blur-sm p-2.5 rounded-xl group-hover:bg-white/30 group-hover:scale-105 transition-all duration-300 shadow-lg">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
           </svg>
         </div>
         <div>
-          <h1 class="text-lg md:text-xl font-bold tracking-wide">Al-Quran Digital</h1>
-          <p class="text-xs text-emerald-100 hidden sm:block">القرآن الكريم</p>
+          <h1 class="text-lg md:text-xl font-bold tracking-wide text-white drop-shadow-md">Al-Quran Digital</h1>
+          <p class="text-xs text-emerald-100 hidden sm:block font-arabic">القرآن الكريم</p>
         </div>
       </div>
 
       <!-- Desktop Navigation (Center) -->
-      <div class="hidden md:flex items-center space-x-2">
+      <div class="hidden md:flex items-center space-x-1">
 
-        <a routerLink="/surat" routerLinkActive="bg-white/20 text-white"
-          class="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2 font-medium">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/surat" routerLinkActive="bg-white/25 shadow-lg"
+          class="px-4 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-300 flex items-center space-x-2 font-medium text-white group">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
           <span>Surat</span>
         </a>
 
-        <a routerLink="/al-masurat" routerLinkActive="bg-white/20 text-white"
-          class="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2 font-medium">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/al-masurat" routerLinkActive="bg-white/25 shadow-lg"
+          class="px-4 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-300 flex items-center space-x-2 font-medium text-white group">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
-          <span>Do`a</span>
+          <span>Doa</span>
         </a>
 
-        <a routerLink="/murotal" routerLinkActive="bg-white/20 text-white"
-          class="px-4 py-2.5 rounded-lg hover:bg-white/10 transition-all duration-300 flex items-center space-x-2 font-medium">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a routerLink="/murotal" routerLinkActive="bg-white/25 shadow-lg"
+          class="px-4 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-300 flex items-center space-x-2 font-medium text-white group">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
           </svg>
           <span>Murotal</span>
         </a>
 
-
       </div>
 
-      <!-- Desktop Action Buttons (Right Side) -->
-      <div class="hidden md:flex items-center space-x-3">
-        <!-- Search Input -->
-        <div class="relative">
+      <!-- Desktop Search (Right Side) -->
+      <div class="hidden md:flex items-center">
+        <div class="relative group">
           <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" [placeholder]="searchPlaceholder"
-            class="bg-white/20 text-white placeholder-emerald-100 px-4 py-2 pl-10 rounded-lg 
-         focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300 w-56" />
+            class="bg-white/20 text-white placeholder-white/60 px-4 py-2 pl-10 rounded-xl 
+            focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/25 transition-all duration-300 w-56
+            backdrop-blur-sm shadow-lg" />
 
-          <svg class="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-emerald-100" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <button (click)="onSearch()" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 rounded-lg hover:bg-white/10 transition-all">
+            <svg class="w-5 h-5 text-white/70 group-focus-within:text-white transition-colors" 
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
         </div>
       </div>
-      <!-- Hamburger Menu Button (Mobile Only - Right Side) -->
-      <button class="md:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-all" (click)="toggleMobileMenu()">
+
+      <!-- Hamburger Menu Button (Mobile) -->
+      <button class="md:hidden text-white p-2 rounded-xl hover:bg-white/15 transition-all shadow-lg" (click)="toggleMobileMenu()">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path *ngIf="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          <path *ngIf="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
             d="M4 6h16M4 12h16M4 18h16" />
-          <path *ngIf="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          <path *ngIf="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
             d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Menu Dropdown -->
-  <div *ngIf="mobileMenuOpen"
-    class="md:hidden bg-emerald-700/95 backdrop-blur-sm border-t border-white/10 animate-slideDown">
-    <div class="px-4 py-3 space-y-2">
+  <!-- Mobile Menu Dropdown with Smooth Animation -->
+  <div 
+    class="md:hidden bg-gradient-to-b from-emerald-700 to-teal-700 backdrop-blur-md border-t border-white/10 shadow-2xl overflow-hidden ease-in-out"
+    [ngClass]="{
+      'max-h-[500px] opacity-100 duration-700 pointer-events-auto': mobileMenuOpen,
+      'max-h-0 opacity-0 duration-500 pointer-events-none': !mobileMenuOpen
+    }"
+    class="transition-all">
+    <div class="px-4 py-4 space-y-2">
 
-      <!-- Search Bar (Mobile - Inside Hamburger) - Dynamic Placeholder -->
+      <!-- Search Bar (Mobile) -->
       <div class="mb-4">
         <div class="relative">
           <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="onSearch()" [placeholder]="searchPlaceholder"
-            class="w-full bg-white/20 text-white placeholder-emerald-100 px-4 py-3 pl-12 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 transition-all" />
+            class="w-full bg-white/20 text-white placeholder-white/60 px-4 py-3 pl-11 rounded-xl 
+            focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/25 transition-all 
+            backdrop-blur-sm shadow-lg" />
 
-
-          <svg class="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-100" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 absolute left-3.5 top-1/2 transform -translate-y-1/2 text-white/70" 
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
       </div>
 
-      <!-- Navigation Menu -->
-
-      <a routerLink="/surat" routerLinkActive="bg-white/20"
-        class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-all"
+      <!-- Navigation Menu Items -->
+      <a routerLink="/surat" routerLinkActive="bg-white/25 shadow-lg"
+        class="flex items-center space-x-3 px-4 py-3.5 rounded-xl hover:bg-white/15 transition-all text-white font-medium group"
         (click)="closeMobileMenu()">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-        <span class="font-medium">Surat</span>
+        <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <span>Daftar Surat</span>
       </a>
 
-      <a routerLink="/al-masurat" routerLinkActive="bg-white/20"
-        class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-all"
+      <a routerLink="/al-masurat" routerLinkActive="bg-white/25 shadow-lg"
+        class="flex items-center space-x-3 px-4 py-3.5 rounded-xl hover:bg-white/15 transition-all text-white font-medium group"
         (click)="closeMobileMenu()">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-        <span class="font-medium">Do'a</span>
+        <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <span>Kumpulan Doa</span>
       </a>
 
-      <a routerLink="/murotal" routerLinkActive="bg-white/20"
-        class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-white/10 transition-all"
+      <a routerLink="/murotal" routerLinkActive="bg-white/25 shadow-lg"
+        class="flex items-center space-x-3 px-4 py-3.5 rounded-xl hover:bg-white/15 transition-all text-white font-medium group"
         (click)="closeMobileMenu()">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-        </svg>
-        <span class="font-medium">Murotal</span>
+        <div class="bg-white/10 p-2 rounded-lg group-hover:bg-white/20 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+        </div>
+        <span>Dengarkan Murotal</span>
       </a>
-
-
 
       <!-- Divider -->
       <div class="border-t border-white/10 my-3"></div>
 
+      <!-- Optional: Additional Info -->
+      <div class="px-4 py-2 text-center text-emerald-100 text-xs opacity-75">
+        <p class="font-arabic text-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      </div>
 
     </div>
   </div>

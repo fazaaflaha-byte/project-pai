@@ -1,31 +1,98 @@
-<div class="p-4">
-  <h1 class="text-2xl font-bold mb-4 text-emerald-700">📖 Daftar Doa Al-Ma’tsurat</h1>
+<!-- al-masurat/al-masurat.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100 p-4">
+  <div class="max-w-7xl mx-auto">
+    <!-- Search Bar -->
+    <!-- <div class="mb-6 max-w-2xl mx-auto">
+      <div class="relative group">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="filterDoa()"
+          placeholder="Cari doa atau kategori..."
+          class="w-full px-5 py-4 pl-12 rounded-2xl border-2 border-emerald-200 
+          focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent 
+          transition-all shadow-lg bg-white group-hover:shadow-xl"
+        />
+        <svg class="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-emerald-400 group-focus-within:text-emerald-600 transition-colors" 
+          fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div> -->
 
-  <!-- Optional: search input di halaman -->
-  <div class="mb-4">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      (input)="filterDoa()"
-      placeholder="Cari doa atau grup..."
-      class="w-full px-4 py-2 rounded-lg border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
-    />
-  </div>
-
-  <div *ngIf="loading" class="text-gray-500">Memuat doa...</div>
-
-  <div *ngIf="!loading && filteredDoaList.length > 0" class="grid gap-3">
-    <div
-      *ngFor="let doa of filteredDoaList"
-      (click)="openDetail(doa)"
-      class="p-4 bg-emerald-50 hover:bg-emerald-100 rounded-xl cursor-pointer transition-all shadow-sm"
-    >
-      <h2 class="font-semibold text-emerald-800">{{ doa.nama }}</h2>
-      <p class="text-sm text-gray-600">{{ doa.grup }}</p>
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex items-center justify-center p-12">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-emerald-600 mx-auto mb-4"></div>
+        <p class="text-emerald-600 font-medium">Memuat doa...</p>
+      </div>
     </div>
-  </div>
 
-  <div *ngIf="!loading && filteredDoaList.length === 0" class="text-gray-500">
-    😔 Tidak ada doa yang cocok.
+    <!-- Doa List -->
+    <div *ngIf="!loading && filteredDoaList.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        *ngFor="let doa of filteredDoaList; let i = index"
+        (click)="openDetail(doa)"
+        class="doa-card group relative bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer overflow-hidden border border-emerald-100"
+        [style.animation-delay]="(i % 3) * 100 + 'ms'"
+      >
+        
+        <!-- Gradient Background Accent -->
+        <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-emerald-400/10 to-teal-500/10 rounded-tl-full transform translate-x-8 translate-y-8 group-hover:scale-110 transition-transform duration-300"></div>
+        
+        <!-- Index Badge -->
+        <div class="absolute top-4 left-4 w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-md z-10">
+          <span class="text-white font-bold text-sm">{{ i + 1 }}</span>
+        </div>
+
+        <!-- Content -->
+        <div class="relative p-6 pl-20">
+          <!-- Nama Doa -->
+          <h2 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-emerald-600 transition-colors">
+            {{ doa.nama }}
+          </h2>
+          
+          <!-- Kategori/Grup -->
+          <div class="flex items-center space-x-2 mb-4 pb-4 border-b border-gray-100">
+            <div class="flex items-center space-x-1 text-sm text-gray-600">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+              <span class="font-medium">{{ doa.grup }}</span>
+            </div>
+          </div>
+
+          <!-- Read Indicator -->
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-emerald-600 font-medium uppercase tracking-wider">Baca Do'a</span>
+            <div class="opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hover Border Effect -->
+        <div class="absolute inset-0 border-2 border-emerald-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && filteredDoaList.length === 0" class="text-center p-12">
+      <div class="max-w-md mx-auto">
+        <div class="bg-gradient-to-br from-emerald-100 to-teal-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-12 h-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-700 mb-2">Tidak ada doa ditemukan</h3>
+        <p class="text-gray-500">Coba gunakan kata kunci yang berbeda</p>
+      </div>
+    </div>
+
   </div>
 </div>

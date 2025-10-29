@@ -1,5 +1,6 @@
+// appbar.component.ts
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // ✅ Tambahkan OnInit
 import { Router, RouterLink, RouterLinkActive, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './appbar.component.html',
   styleUrls: ['./appbar.component.css']
 })
-export class AppbarComponent {
+export class AppbarComponent implements OnInit { // ✅ Implement OnInit
   mobileMenuOpen = false;
   searchPlaceholder = 'Cari surat, ayat...';
   searchQuery = '';
@@ -33,9 +34,9 @@ export class AppbarComponent {
   /** 🔄 Ubah placeholder berdasarkan route aktif */
   updateSearchPlaceholder(url: string): void {
     if (url.includes('/al-masurat')) {
-      this.searchPlaceholder = 'Cari Surat...';
+      this.searchPlaceholder = 'Cari doa...';
     } else if (url.includes('/murotal')) {
-      this.searchPlaceholder = 'Cari Surat...';
+      this.searchPlaceholder = 'Cari murotal...';
     } else if (url.includes('/surat')) {
       this.searchPlaceholder = 'Cari surat...';
     } else {
@@ -54,19 +55,38 @@ export class AppbarComponent {
   }
 
   /** 🔍 Fungsi ketika tekan Enter di search */
- onSearch(): void {
-  if (!this.searchQuery.trim()) return;
+  onSearch(): void {
+    const query = this.searchQuery.trim();
+    
+    // ✅ Validasi input kosong
+    if (!query) {
+      console.log('Query kosong, search dibatalkan');
+      return;
+    }
 
-  const query = this.searchQuery.trim();
-  let targetRoute = '/surat'; // default
+    // ✅ Tentukan target route
+    let targetRoute = '/surat'; // default
 
-  if (this.router.url.includes('/al-masurat')) targetRoute = '/al-masurat';
-  else if (this.router.url.includes('/murotal')) targetRoute = '/murotal';
+    if (this.router.url.includes('/al-masurat')) {
+      targetRoute = '/al-masurat';
+    } else if (this.router.url.includes('/murotal')) {
+      targetRoute = '/murotal';
+    }
 
-  this.router.navigate([targetRoute], { queryParams: { q: query } });
+    console.log('🔍 Searching:', query, 'in', targetRoute); // ✅ Debug log
 
-  this.searchQuery = '';
-  this.closeMobileMenu();
-}
-
+    // ✅ Navigate dengan query params
+    this.router.navigate([targetRoute], { 
+      queryParams: { q: query },
+      queryParamsHandling: 'merge' // ✅ Merge dengan params yang ada
+    }).then(success => {
+      console.log('Navigation success:', success);
+      if (success) {
+        this.searchQuery = ''; // ✅ Clear hanya jika berhasil
+        this.closeMobileMenu();
+      }
+    }).catch(err => {
+      console.error('Navigation error:', err);
+    });
+  }
 }
